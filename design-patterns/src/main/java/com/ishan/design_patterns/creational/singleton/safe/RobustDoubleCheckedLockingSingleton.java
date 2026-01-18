@@ -3,17 +3,17 @@ package com.ishan.design_patterns.creational.singleton.safe;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 
-public final class RobustSingleton implements Serializable, Cloneable {
+public final class RobustDoubleCheckedLockingSingleton implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
     // 1️⃣ volatile → required for correct double-checked locking
-    private static volatile RobustSingleton instance;
+    private static volatile RobustDoubleCheckedLockingSingleton instance;
 
     // 2️⃣ Guard flag to prevent reflection
     private static boolean instanceCreated = false;
 
-    private RobustSingleton() {
+    private RobustDoubleCheckedLockingSingleton() {
         // Prevent reflection attack
         if (instanceCreated) {
             throw new RuntimeException("Use getInstance() method");
@@ -22,11 +22,11 @@ public final class RobustSingleton implements Serializable, Cloneable {
     }
 
     // 3️⃣ Thread-safe lazy initialization
-    public static RobustSingleton getInstance() {
+    public static RobustDoubleCheckedLockingSingleton getInstance() {
         if (instance == null) {
-            synchronized (RobustSingleton.class) {
+            synchronized (RobustDoubleCheckedLockingSingleton.class) {
                 if (instance == null) {
-                    instance = new RobustSingleton();
+                    instance = new RobustDoubleCheckedLockingSingleton();
                 }
             }
         }
@@ -38,6 +38,15 @@ public final class RobustSingleton implements Serializable, Cloneable {
     protected Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException("Cloning of this singleton is not allowed");
     }
+
+    /**
+     * Make cloning to be idempotent, preserve backward compatibility
+     * prefer graceful recovery to strict enforcement
+     */
+//    @Override
+//    protected Object clone() {
+//        return getInstance();
+//    }
 
     // 5️⃣ Prevent serialization break
     private Object readResolve() throws ObjectStreamException {

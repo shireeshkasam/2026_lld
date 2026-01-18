@@ -1,4 +1,4 @@
-package com.ishan.design_patterns.creational.singleton;
+package com.ishan.design_patterns.creational.singleton.variants;
 
 /**
  * Problem
