@@ -1,0 +1,228 @@
+// factory
+
+abstract class Laptop { }
+
+class HPLaptop extends Laptop {}
+
+class DellLaptop extends Laptop {}
+
+class AppleLaptop extends Laptop  {}
+
+enum LaptopType {
+
+}
+
+class LaptopFactory {
+
+	public static Laptop getLaptop(String brandName) {
+			if (brandName == null) {
+				throw new IllegalArgumentException();
+			}
+
+			if ("HP".equals(brandName)){
+				return new HPLaptop();
+			} else if ("DELL".equals(brandName)) {
+				return new DellLaptop();
+			} else if {
+			 ////
+			}
+	}
+}
+
+class Client {
+	main() {
+		String name = "";
+		Laptop laptop = LaptopFactory.getLaptop(name);
+	}
+}
+
+// abstract factory
+
+// factory of factory
+
+// product
+	abstract class Sim {}
+	class AirtelSim extends Sim {}
+	class JioSim extends Sim {}
+
+	abstract class Wifi {}
+	class AirtelWifi extends Wifi {}
+	class JioWifi extends Wifi {}
+
+	abstract class DishTV {}
+	class AirtelDishTV extends DishTV {}
+	class JioDishTV extends DishTV {}
+
+// factory
+abstract class ProductFactory {
+	public abstract Sim createSim();
+	public abstract Wifi createWifi();
+	public abstract DishTV createDishTV();
+}
+
+class AirtelProductFactory extends ProductFactory {
+	public Sim createSim() { return new AirtelSim(); }
+	public Wifi createWifi() { return new AirtelWifi(); }
+	public DishTV createDishTV() { return new AirtelDishTV(); }
+}
+
+class RelianceProductFactory extends ProductFactory {
+	public Sim createSim() { return new JioSim(); }
+	public Wifi createWifi() { return new JioWifi(); }
+	public DishTV createDishTV() { return new JioDishTV(); }
+}
+
+class FactoryProvider {
+
+	public static ProductFactory getFactory(String companyName) {
+		if ("Airtel".equals(companyName)) {
+			return new AirtelProductFactory();
+		} else {
+			return new RelianceProductFactory();
+		}
+	}
+}
+
+class Client {
+	main() {
+			String name = "";
+			ProductFactory factory = FactoryProvider.getFactory(name);
+
+			factory.createSim();
+			factory.createDishTV();
+			factory.createWifi();
+	}
+}
+
+
+// Builder design pattern
+
+--> class has a lot of attributes
+--> then all the attributes of the class not mandatory
+--> lombok -> @Builder
+
+// Immutability
+class Message {
+
+	// step 1.
+	private final String prop1;
+	private final String prop2;
+	private final boolean prop3;
+	private final Integer prop4;
+	private final List<Integer> list;
+
+	// step 5.
+	private Message(Builder builder) {
+		this.prop1 = builder.prop1;
+		this.prop2 = builder.prop2;
+		this.prop3 = builder.prop3;
+		this.prop4 = builder.prop4;
+		this.list = new ArrayList<>(list);
+	}
+
+	// step 6.
+	public static Builder getBuilder() {
+		return new Builder();
+	}
+
+	// getter
+
+	// step 2.
+	static class Builder {
+		private String prop1;
+		private String prop2;
+		private boolean prop3;
+		private Integer prop4;
+
+		// step 3.
+		public void setProp1(String prop1) {
+			this.prop1 = prop1;
+			//return this;
+		}
+
+		public Builder setProp2(String prop2) {
+			this.prop2 = prop2;
+			return this;
+		}
+
+		public Builder setProp3(boolean prop3) {
+			this.prop3 = prop3;
+			return this;
+		}
+
+		public Builder setProp4(Integer prop4) {
+			this.prop4 = prop4;
+			return this;
+		}
+
+		// step 4.
+		public Message build() {
+
+			if (this.prop4 < 0) {
+				throw new InvalidArgumentException("adsaA");
+			}
+
+			return new Message(this);
+		}
+	}
+}
+
+class client {
+
+	main() {
+	Message message = Message.getBuilder().setProp1("p1").setProp2("p2").build();
+
+	Builder b = Message.getBuilder();
+	b.setProp1("p1");
+	b.setProp2("p2");
+	Message message = b.build();
+
+	}
+}
+
+// Prototype + Registry design pattern -- Unit test cases
+// Junit
+// given an input -> you will get some  output...
+// prepare input ->
+
+interface Prototype<T> {
+	T copy();
+}
+
+class User implements Prototype<User> {
+	private String name;
+	private int age;
+	private UserType userType;
+
+	public User(String name, int age, UserType userType) {
+		this.name = name;
+		this.age = age;
+		this.userType = userType;
+	}
+
+	// getter . setter
+	// toString
+	// other methods
+
+	@Override
+	public User copy() {
+		return new User(name, age, userType);
+	}
+}
+
+interface UserRegistry {
+	void addUser(User user);
+	User copyUser(UserType userType);
+}
+
+class UserRegistryImpl implements UserRegistry {
+	private Map<UserType, User> userMap = new HashMap<>();
+
+	public void addUser(User user) {
+		userMap.put(user.userType, user);
+	}
+
+	public User copyUser(UserType userType) {
+		return userMap.get(userType).copy();
+	}
+}
