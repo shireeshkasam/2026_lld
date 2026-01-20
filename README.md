@@ -1,4 +1,4 @@
-# 2026_llp_by_ishan
+# 2026_lld_by_ishan
 
 A structured repository for **Low-Level Design (LLD) practice**, focusing on
 **SOLID principles** and **Design Patterns** using Java.
