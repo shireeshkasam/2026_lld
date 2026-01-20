@@ -29,16 +29,48 @@ Converts the interface of a class into another interface that the client expects
 
 **What it is**
 Separates an abstraction from its implementation so both can evolve independently.
+Bridge pattern avoids class explosion by separating what a class does from how it does it, allowing both to change
+independently using composition.
+
+**The Bridge**
+
+`protected Engine engine;`
+
+This line: Connects Car and Engine. It uses composition, not inheritance. It prevents tight coupling.
+
+**Without Bridge (problem)**
+
+If you used inheritance:
+
+* PetrolSedan
+* DieselSedan
+* ElectricSedan
+* PetrolSUV
+* DieselSUV
+* ElectricSUV
+
+➡️ Class explosion
+➡️ Any new engine multiplies car classes
+
+**With Bridge (solution)**
+
+* Add a new Car → no engine changes
+* Add a new Engine → no car changes
+* Both hierarchies evolve independently
+
+That independence is the essence of Bridge.
 
 **When to use it (real-world signal)**
 
-* You see class explosion due to multiple dimensions of variation
-* You want to change implementation details without touching high-level logic
+* You see class explosion caused by multiple independent dimensions of variation
+  (e.g., Car type × Engine type)
+* You want to change or extend implementation details without modifying high-level business abstractions
+* You want to combine different abstractions and implementations at runtime
 
 **Example scenarios**
 
-* Different message types (SMS, Email) with different delivery providers
-* Shape abstraction with multiple rendering engines
+* Car types (Sedan, SUV) with multiple engine types (Petrol, Diesel, Electric)
+* Message types (Text, Alert) abstraction with multiple delivery providers (SMS, Email, Push)
 
 ---
 
