@@ -1,0 +1,12 @@
+package com.ishan.design_patterns.structural.flyweight.game_example;
+
+public class ChessUser {
+    private String name;
+    private int age;
+    private String gender;
+    private String email;
+    private String phoneNumber;
+    private Colour colour;
+    private int currentGameStreak;
+    private Byte[] photo;
+}
