@@ -182,18 +182,18 @@ Separates algorithms from the objects on which they operate.
 
 ## Summary Table
 
-| Pattern                 | Primary Purpose                          |
-|-------------------------|------------------------------------------|
-| Chain of Responsibility | Pass requests through handlers           |
-| Command                 | Encapsulate requests as objects          |
-| Iterator                | Traverse collections uniformly           |
-| Mediator                | Centralize object communication          |
-| Observer                | Notify multiple objects of state changes |
-| Memento                 | Capture and restore state                |
-| Strategy                | Swap algorithms at runtime               |
-| State                   | Change behavior based on state           |
-| Template Method         | Define algorithm skeleton                |
-| Visitor                 | Add operations without changing classes  |
+| Pattern                 | Primary Purpose                                                                              |
+|-------------------------|----------------------------------------------------------------------------------------------|
+| Chain of Responsibility | Pass requests through handlers                                                               |
+| Command                 | Encapsulate requests as objects                                                              |
+| Iterator                | Traverse collections uniformly                                                               |
+| Mediator                | Centralize object communication                                                              |
+| Observer                | Notify multiple objects of state changes                                                     |
+| Memento                 | Capture and restore state                                                                    |
+| Strategy                | Swap algorithms at runtime                                                                   |
+| State                   | Change behavior based on state                                                               |
+| Template Method         | Define algorithm skeleton in base class and lets subclasses customize specific steps         |
+| Visitor                 | Add operations without changing classes (when classes are fixed but operations can be added) |
 
 ---
 
